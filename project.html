@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alexander Rivera - Projects</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fafafa;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: #fff;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #666;
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #333;
+        }
+
+        main {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero {
+            margin-bottom: 4rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .project-card {
+            background: #fff;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .project-title {
+            color: #333;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: #f5f5f5;
+            color: #555;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            border: 1px solid #e1e1e1;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            color: #666;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: 1px solid #e1e1e1;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            background: #fff;
+        }
+
+        .project-link:hover {
+            color: #333;
+            border-color: #ccc;
+        }
+
+        .project-link.primary {
+            background: #333;
+            border-color: #333;
+            color: #fff;
+        }
+
+        .project-link.primary:hover {
+            background: #555;
+            border-color: #555;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e1e1e1;
+        }
+
+        .social-links a {
+            color: #666;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #333;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #e1e1e1;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .project-links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Alexander Rivera</a>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#projects" class="active">Projects</a></li>
+                    <li><a href="#contact">Contact me</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Projects</h1>
+            <p>Full Stack Dev</p>
+        </section>
+
+        <section class="projects-grid">
+            <div class="project-card">
+                <h3 class="project-title">Cloud Infrastructure Automation</h3>
+                <p class="project-description">
+                    Automated cloud infrastructure deployment using Infrastructure as Code. 
+                    Features auto-scaling, monitoring, and CI/CD pipeline integration across multiple cloud providers.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Terraform</span>
+                    <span class="tech-tag">AWS</span>
+                    <span class="tech-tag">Docker</span>
+                    <span class="tech-tag">Kubernetes</span>
+                    <span class="tech-tag">Jenkins</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link primary">View Project</a>
+                    <a href="#" class="project-link">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">Performance Management App</h3>
+                <p class="project-description">
+                    Full-stack web application for managing events and bookings. 
+                    Built with modern React and Node.js, featuring real-time updates and payment integration.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">Node.js</span>
+                    <span class="tech-tag">MongoDB</span>
+                    <span class="tech-tag">Socket.io</span>
+                    <span class="tech-tag">Stripe</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link primary">View Project</a>
+                    <a href="#" class="project-link">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">Real-time Analytics Dashboard</h3>
+                <p class="project-description">
+                    Analytics platform that processes and visualizes real-time data streams. 
+                    Features customizable dashboards, alerting systems, and machine learning insights.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Vue.js</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Redis</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">WebSocket</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link primary">View Project</a>
+                    <a href="#" class="project-link">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">Security Monitoring System</h3>
+                <p class="project-description">
+                    Enterprise security monitoring solution with automated threat detection, 
+                    incident response workflows, and compliance reporting.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Go</span>
+                    <span class="tech-tag">Elasticsearch</span>
+                    <span class="tech-tag">Grafana</span>
+                    <span class="tech-tag">Prometheus</span>
+                    <span class="tech-tag">Linux</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link primary">View Project</a>
+                    <a href="#" class="project-link">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">AI-Powered Chatbot</h3>
+                <p class="project-description">
+                    Intelligent chatbot with natural language processing capabilities. 
+                    Features context awareness, sentiment analysis, and automated learning.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">TensorFlow</span>
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">NLP</span>
+                    <span class="tech-tag">WebSocket</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link primary">View Project</a>
+                    <a href="#" class="project-link">GitHub</a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <h3 class="project-title">Microservices E-commerce Platform</h3>
+                <p class="project-description">
+                    Scalable e-commerce platform built with microservices architecture. 
+                    Independent services for user management, inventory, payments, and notifications.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Spring Boot</span>
+                    <span class="tech-tag">Angular</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">RabbitMQ</span>
+                    <span class="tech-tag">API Gateway</span>
+                </div>
+                <div class="project-links">
+                    <a href="#" class="project-link primary">View Project</a>
+                    <a href="#" class="project-link">GitHub</a>
+                </div>
+            </div>
+        </section>
+
+        <div class="social-links">
+            <a href="#">📁</a>
+            <a href="#">💼</a>
+            <a href="#">🐦</a>
+            <a href="#">📡</a>
+        </div>
+    </main>
+
+    <footer class="container">
+        <p>© 2015 - 2025 Alexander Rivera · Powered by coffee and deadlines</p>
+    </footer>
+</body>
+</html>
