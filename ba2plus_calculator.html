@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TI BA II Plus Calculator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .calculator {
+            width: 280px;
+            background: #2c2c2c;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        
+        .header {
+            background: #000;
+            color: white;
+            padding: 8px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .brand {
+            background: #d32f2f;
+            color: white;
+            padding: 4px 8px;
+            font-size: 12px;
+            font-weight: bold;
+            text-align: right;
+            border-radius: 0 0 8px 8px;
+            margin-bottom: 10px;
+        }
+        
+        .display-section {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .model-name {
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        
+        .display {
+            background: #4a5d23;
+            border: 2px solid #333;
+            border-radius: 4px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #000;
+            margin-bottom: 8px;
+        }
+        
+        .business-analyst {
+            color: #ccc;
+            font-size: 10px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 3px;
+            margin-top: 10px;
+        }
+        
+        .btn {
+            background: #3a3a3a;
+            border: 1px solid #555;
+            color: white;
+            border-radius: 4px;
+            height: 35px;
+            font-size: 9px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.1s;
+            line-height: 1.1;
+        }
+        
+        .btn:hover {
+            background: #4a4a4a;
+            transform: translateY(-1px);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+            background: #2a2a2a;
+        }
+        
+        .btn-primary {
+            background: #444;
+            font-weight: bold;
+        }
+        
+        .btn-number {
+            background: #2a2a2a;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .btn-operation {
+            background: #1565c0;
+            color: white;
+        }
+        
+        .top-text {
+            font-size: 7px;
+            color: #aaa;
+            margin-bottom: 1px;
+        }
+        
+        .main-text {
+            font-size: 10px;
+            font-weight: bold;
+        }
+        
+        .yellow-text {
+            color: #ffd700;
+        }
+        
+        .blue-text {
+            color: #4fc3f7;
+        }
+        
+        .bottom-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3px;
+            margin-top: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="header">Texas Instruments</div>
+        <div class="brand">BA II Plus™</div>
+        
+        <div class="display-section">
+            <div class="model-name">BA II Plus</div>
+            <div class="display" id="display">0</div>
+            <div class="business-analyst">BUSINESS ANALYST</div>
+        </div>
+        
+        <div class="button-grid">
+            <!-- Row 1 -->
+            <button class="btn" onclick="quitFunction()">
+                <span class="main-text">QUIT</span>
+            </button>
+            <button class="btn" onclick="setFunction()">
+                <span class="main-text">SET</span>
+            </button>
+            <button class="btn" onclick="deleteChar()">
+                <span class="main-text">DEL</span>
+            </button>
+            <button class="btn" onclick="insertFunction()">
+                <span class="main-text">INS</span>
+            </button>
+            <button class="btn btn-operation" onclick="toggleOnOff()">
+                <span class="main-text">ON/OFF</span>
+            </button>
+            
+            <!-- Row 2 -->
+            <button class="btn" onclick="cptFunction()">
+                <span class="main-text yellow-text">CPT</span>
+            </button>
+            <button class="btn" onclick="enterFunction()">
+                <span class="main-text">ENTER</span>
+            </button>
+            <button class="btn" onclick="upArrow()">
+                <span class="main-text">↑</span>
+            </button>
+            <button class="btn" onclick="downArrow()">
+                <span class="main-text">↓</span>
+            </button>
+            <button class="btn" onclick="clearEntry()">
+                <span class="main-text yellow-text">CE</span>
+            </button>
+            
+            <!-- Row 3 - 2ND functions in yellow -->
+            <button class="btn" onclick="secondFunction()">
+                <span class="main-text yellow-text">2ND</span>
+            </button>
+            <button class="btn" onclick="cfFunction()">
+                <span class="top-text yellow-text">CF</span>
+                <span class="main-text">NPV</span>
+            </button>
+            <button class="btn" onclick="irrFunction()">
+                <span class="top-text yellow-text">IRR</span>
+                <span class="main-text">→</span>
+            </button>
+            <button class="btn" onclick="clearTvmFunction()">
+                <span class="main-text yellow-text">CLR TVM</span>
+            </button>
+            
+            <!-- Row 4 - TVM Functions -->
+            <button class="btn" onclick="nFunction()">
+                <span class="top-text blue-text">xP/Y</span>
+                <span class="main-text">N</span>
+            </button>
+            <button class="btn" onclick="iyFunction()">
+                <span class="top-text blue-text">P/Y</span>
+                <span class="main-text">I/Y</span>
+            </button>
+            <button class="btn" onclick="pvFunction()">
+                <span class="top-text blue-text">AMORT</span>
+                <span class="main-text">PV</span>
+            </button>
+            <button class="btn" onclick="pmtFunction()">
+                <span class="top-text blue-text">BGN</span>
+                <span class="main-text">PMT</span>
+            </button>
+            <button class="btn" onclick="fvFunction()">
+                <span class="main-text">FV</span>
+            </button>
+            
+            <!-- Row 5 -->
+            <button class="btn" onclick="percentFunction()">
+                <span class="main-text">%</span>
+            </button>
+            <button class="btn" onclick="sqrtFunction()">
+                <span class="main-text">√x</span>
+            </button>
+            <button class="btn" onclick="xSquaredFunction()">
+                <span class="main-text">x²</span>
+            </button>
+            <button class="btn" onclick="reciprocalFunction()">
+                <span class="main-text">1/x</span>
+            </button>
+            <button class="btn" onclick="randFunction()">
+                <span class="top-text blue-text">RAND</span>
+                <span class="main-text">+/-</span>
+            </button>
+            
+            <!-- Row 6 -->
+            <button class="btn" onclick="hypFunction()">
+                <span class="main-text">HYP</span>
+            </button>
+            <button class="btn" onclick="sinFunction()">
+                <span class="main-text">SIN</span>
+            </button>
+            <button class="btn" onclick="cosFunction()">
+                <span class="main-text">COS</span>
+            </button>
+            <button class="btn" onclick="tanFunction()">
+                <span class="main-text">TAN</span>
+            </button>
+            <button class="btn" onclick="multiplyFunction()">
+                <span class="main-text">×</span>
+            </button>
+            
+            <!-- Row 7 -->
+            <button class="btn" onclick="invFunction()">
+                <span class="main-text">INV</span>
+            </button>
+            <button class="btn" onclick="openParen()">
+                <span class="main-text">(</span>
+            </button>
+            <button class="btn" onclick="closeParen()">
+                <span class="main-text">)</span>
+            </button>
+            <button class="btn" onclick="yToXFunction()">
+                <span class="main-text">y^x</span>
+            </button>
+            <button class="btn" onclick="npvFunction()">
+                <span class="main-text">nPr</span>
+            </button>
+            
+            <!-- Row 8 -->
+            <button class="btn" onclick="eToXFunction()">
+                <span class="main-text">e^x</span>
+            </button>
+            <button class="btn" onclick="dataFunction()">
+                <span class="main-text">DATA</span>
+            </button>
+            <button class="btn" onclick="statFunction()">
+                <span class="main-text">STAT</span>
+            </button>
+            <button class="btn" onclick="bondFunction()">
+                <span class="main-text">BOND</span>
+            </button>
+            <button class="btn" onclick="divideFunction()">
+                <span class="main-text">÷</span>
+            </button>
+            
+            <!-- Row 9 -->
+            <button class="btn" onclick="lnFunction()">
+                <span class="main-text">LN</span>
+            </button>
+            <button class="btn btn-number" onclick="inputNumber('7')">
+                <span class="main-text">7</span>
+            </button>
+            <button class="btn btn-number" onclick="inputNumber('8')">
+                <span class="main-text">8</span>
+            </button>
+            <button class="btn btn-number" onclick="inputNumber('9')">
+                <span class="main-text">9</span>
+            </button>
+            <button class="btn" onclick="subtractFunction()">
+                <span class="main-text">-</span>
+            </button>
+            
+            <!-- Row 10 -->
+            <button class="btn" onclick="roundFunction()">
+                <span class="top-text blue-text">ROUND</span>
+                <span class="main-text">STO</span>
+            </button>
+            <button class="btn btn-number" onclick="inputNumber('4')">
+                <span class="top-text blue-text">DEPR</span>
+                <span class="main-text">4</span>
+            </button>
+            <button class="btn btn-number" onclick="inputNumber('5')">
+                <span class="top-text blue-text">4%</span>
+                <span class="main-text">5</span>
+            </button>
+            <button class="btn btn-number" onclick="inputNumber('6')">
+                <span class="top-text blue-text">BRKEVN</span>
+                <span class="main-text">6</span>
+            </button>
+            <button class="btn" onclick="addFunction()">
+                <span class="top-text blue-text">nCr</span>
+                <span class="main-text">+</span>
+            </button>
+            
+            <!-- Row 11 -->
+            <button class="btn" onclick="rclFunction()">
+                <span class="top-text blue-text">RCL</span>
+                <span class="main-text">CLR WORK</span>
+            </button>
+            <button class="btn btn-number" onclick="inputNumber('1')">
+                <span class="top-text blue-text">DATE</span>
+                <span class="main-text">1</span>
+            </button>
+            <button class="btn btn-number" onclick="inputNumber('2')">
+                <span class="top-text blue-text">ICONV</span>
+                <span class="main-text">2</span>
+            </button>
+            <button class="btn btn-number" onclick="inputNumber('3')">
+                <span class="top-text blue-text">PROFIT</span>
+                <span class="main-text">3</span>
+            </button>
+            <button class="btn" onclick="ansFunction()">
+                <span class="main-text">ANS</span>
+            </button>
+            
+            <!-- Row 12 -->
+            <button class="btn" onclick="cejcFunction()">
+                <span class="top-text blue-text">CEJC</span>
+                <span class="main-text">MEM</span>
+            </button>
+            <button class="btn btn-number" onclick="inputNumber('0')">
+                <span class="top-text blue-text">FORMAT</span>
+                <span class="main-text">0</span>
+            </button>
+            <button class="btn btn-number" onclick="inputDecimal()">
+                <span class="top-text blue-text">RESET</span>
+                <span class="main-text">.</span>
+            </button>
+            <button class="btn" onclick="plusMinusFunction()">
+                <span class="main-text">+/-</span>
+            </button>
+            <button class="btn btn-operation" onclick="calculateResult()">
+                <span class="main-text">=</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        let currentInput = '0';
+        let operator = null;
+        let previousInput = null;
+        let waitingForNewInput = false;
+        
+        // TVM Variables
+        let tvmData = {
+            N: null,    // Number of periods
+            IY: null,   // Interest rate per year
+            PV: null,   // Present value
+            PMT: null,  // Payment
+            FV: null    // Future value
+        };
+        
+        // Multiple Memory Registers (0-9)
+        let memory = Array(10).fill(0);
+        let currentMemoryRegister = 0;
+        let isSecondFunction = false;
+        
+        // Statistical Data
+        let statData = [];
+        let cashFlows = [];
+        
+        // Date Variables
+        let dateMode = false;
+        let storedDates = {
+            date1: null,
+            date2: null
+        };
+
+        function updateDisplay() {
+            display.textContent = currentInput;
+        }
+
+        // Update number button handlers to include secondary functions
+        function inputNumber(num) {
+            // Handle secondary functions first
+            if (isSecondFunction) {
+                switch(num) {
+                    case '1':
+                        toggleDateMode();
+                        return;
+                    case '2':
+                        calculateInterestConversion();
+                        return;
+                    case '3':
+                        calculateProfit();
+                        return;
+                    case '4':
+                        calculateDepreciation();
+                        return;
+                    case '5':
+                        // 4% function - calculate 4% of current value
+                        currentInput = (parseFloat(currentInput) * 0.04).toString();
+                        updateDisplay();
+                        return;
+                    case '6':
+                        calculateBreakeven();
+                        return;
+                    case '0':
+                        showFormat();
+                        return;
+                }
+            }
+            
+            // Normal number input
+            if (waitingForNewInput) {
+                currentInput = num;
+                waitingForNewInput = false;
+            } else {
+                currentInput = currentInput === '0' ? num : currentInput + num;
+            }
+            updateDisplay();
+        }
+        
+        function inputDecimal() {
+            if (isSecondFunction) {
+                // RESET function
+                resetCalculator();
+                return;
+            }
+            
+            if (waitingForNewInput) {
+                currentInput = '0.';
+                waitingForNewInput = false;
+            } else if (currentInput.indexOf('.') === -1) {
+                currentInput += '.';
+            }
+            updateDisplay();
+        }
+        
+        function showFormat() {
+            display.textContent = 'FIX 2 DEC';
+            setTimeout(() => updateDisplay(), 1000);
+        }
+        
+        function resetCalculator() {
+            currentInput = '0';
+            operator = null;
+            previousInput = null;
+            waitingForNewInput = false;
+            tvmData = { N: null, IY: null, PV: null, PMT: null, FV: null };
+            statData = [];
+            cashFlows = [];
+            memory = Array(10).fill(0);
+            currentMemoryRegister = 0;
+            isSecondFunction = false;
+            dateMode = false;
+            storedDates = { date1: null, date2: null };
+            display.textContent = 'RESET';
+            setTimeout(() => updateDisplay(), 1000);
+        }
+        
+        // Enhanced nPr and nCr functions
+        function npvFunction() { 
+            if (previousInput && currentInput) {
+                let n = parseInt(previousInput);
+                let r = parseInt(currentInput);
+                
+                // nPr = n! / (n-r)!
+                let result = 1;
+                for (let i = n; i > n - r; i--) {
+                    result *= i;
+                }
+                
+                currentInput = result.toString();
+                updateDisplay();
+                previousInput = null;
+            } else {
+                display.textContent = 'nPr: Enter n, +, r';
+                setTimeout(() => updateDisplay(), 1500);
+            }
+        }
+        
+        function addFunction() { 
+            if (isSecondFunction) {
+                // nCr function
+                if (previousInput && currentInput) {
+                    let n = parseInt(previousInput);
+                    let r = parseInt(currentInput);
+                    
+                    // nCr = n! / (r! * (n-r)!)
+                    let nFactorial = 1;
+                    let rFactorial = 1;
+                    let nrFactorial = 1;
+                    
+                    for (let i = 1; i <= n; i++) nFactorial *= i;
+                    for (let i = 1; i <= r; i++) rFactorial *= i;
+                    for (let i = 1; i <= (n - r); i++) nrFactorial *= i;
+                    
+                    let result = nFactorial / (rFactorial * nrFactorial);
+                    currentInput = result.toString();
+                    updateDisplay();
+                    previousInput = null;
+                } else {
+                    display.textContent = 'nCr: Enter n, +, r';
+                    setTimeout(() => updateDisplay(), 1500);
+                }
+            } else {
+                inputOperation('+');
+            }
+        }
+
+        function inputOperation(op) {
+            if (operator && !waitingForNewInput) {
+                calculateResult();
+            }
+            operator = op;
+            previousInput = currentInput;
+            waitingForNewInput = true;
+        }
+
+        function calculateResult() {
+            if (operator && previousInput !== null) {
+                const prev = parseFloat(previousInput);
+                const current = parseFloat(currentInput);
+                let result;
+
+                switch (operator) {
+                    case '+':
+                        result = prev + current;
+                        break;
+                    case '-':
+                        result = prev - current;
+                        break;
+                    case '*':
+                        result = prev * current;
+                        break;
+                    case '/':
+                        result = current !== 0 ? prev / current : 'Error';
+                        break;
+                    default:
+                        return;
+                }
+
+                currentInput = result.toString();
+                operator = null;
+                previousInput = null;
+                waitingForNewInput = true;
+                updateDisplay();
+            }
+        }
+
+        function clearAll() {
+            currentInput = '0';
+            operator = null;
+            previousInput = null;
+            waitingForNewInput = false;
+            updateDisplay();
+        }
+
+        function clearEntry() {
+            currentInput = '0';
+            updateDisplay();
+        }
+
+        function deleteChar() {
+            if (currentInput.length > 1) {
+                currentInput = currentInput.slice(0, -1);
+            } else {
+                currentInput = '0';
+            }
+            updateDisplay();
+        }
+
+        function toggleOnOff() {
+            if (display.textContent === '0') {
+                display.textContent = '';
+                display.style.background = '#2a2a2a';
+            } else {
+                currentInput = '0';
+                display.style.background = '#4a5d23';
+                updateDisplay();
+            }
+        }
+
+        function plusMinusFunction() { 
+            currentInput = (parseFloat(currentInput) * -1).toString(); 
+            updateDisplay(); 
+        }
+
+        // Mathematical functions
+        function sqrtFunction() { currentInput = Math.sqrt(parseFloat(currentInput)).toString(); updateDisplay(); }
+        function xSquaredFunction() { currentInput = Math.pow(parseFloat(currentInput), 2).toString(); updateDisplay(); }
+        function reciprocalFunction() { currentInput = (1 / parseFloat(currentInput)).toString(); updateDisplay(); }
+        function eToXFunction() { currentInput = Math.exp(parseFloat(currentInput)).toString(); updateDisplay(); }
+        function lnFunction() { currentInput = Math.log(parseFloat(currentInput)).toString(); updateDisplay(); }
+        function roundFunction() { currentInput = Math.round(parseFloat(currentInput)).toString(); updateDisplay(); }
+
+        // Arithmetic operations
+        function addFunction() { inputOperation('+'); }
+        function subtractFunction() { inputOperation('-'); }
+        function multiplyFunction() { inputOperation('*'); }
+        function divideFunction() { inputOperation('/'); }
+
+        // Financial and special function placeholders
+        function quitFunction() { display.textContent = 'QUIT'; setTimeout(() => updateDisplay(), 1000); }
+        function setFunction() { display.textContent = 'SET'; setTimeout(() => updateDisplay(), 1000); }
+        function insertFunction() { display.textContent = 'INS'; setTimeout(() => updateDisplay(), 1000); }
+        function cptFunction() { display.textContent = 'CPT'; setTimeout(() => updateDisplay(), 1000); }
+        function enterFunction() { calculateResult(); }
+        function upArrow() { display.textContent = 'Up Arrow'; setTimeout(() => updateDisplay(), 1000); }
+        function downArrow() { display.textContent = 'Down Arrow'; setTimeout(() => updateDisplay(), 1000); }
+        // 2ND Function Toggle
+        function secondFunction() { 
+            isSecondFunction = !isSecondFunction;
+            display.textContent = isSecondFunction ? '2ND ON' : '2ND OFF';
+            setTimeout(() => updateDisplay(), 1000);
+        }
+        
+        // Memory Functions with Multiple Registers
+        function roundFunction() { 
+            if (isSecondFunction) {
+                // ROUND function
+                let decimals = 2; // Default to 2 decimal places
+                currentInput = parseFloat(currentInput).toFixed(decimals);
+                updateDisplay();
+            } else {
+                // STO function - Store to current memory register
+                memory[currentMemoryRegister] = parseFloat(currentInput);
+                display.textContent = `STO ${currentMemoryRegister}: ${memory[currentMemoryRegister]}`;
+                setTimeout(() => updateDisplay(), 1500);
+            }
+        }
+        
+        function rclFunction() { 
+            if (isSecondFunction) {
+                // RCL function - Recall from current memory register
+                currentInput = memory[currentMemoryRegister].toString();
+                display.textContent = `RCL ${currentMemoryRegister}: ${memory[currentMemoryRegister]}`;
+                setTimeout(() => updateDisplay(), 1500);
+            } else {
+                // CLR WORK function
+                currentInput = '0';
+                operator = null;
+                previousInput = null;
+                waitingForNewInput = false;
+                display.textContent = 'WORK CLEARED';
+                setTimeout(() => updateDisplay(), 1000);
+            }
+        }
+        
+        function cejcFunction() { 
+            if (isSecondFunction) {
+                // CEJC (Cash Flow) function
+                enterCashFlow();
+            } else {
+                // MEM function - Select memory register
+                let register = parseInt(currentInput) % 10; // 0-9 only
+                currentMemoryRegister = register;
+                display.textContent = `MEM REG: ${currentMemoryRegister}`;
+                setTimeout(() => updateDisplay(), 1000);
+            }
+        }
+        
+        // Percentage Function
+        function percentFunction() { 
+            if (previousInput && operator) {
+                let base = parseFloat(previousInput);
+                let percent = parseFloat(currentInput);
+                let result;
+                
+                switch(operator) {
+                    case '+':
+                        result = base + (base * percent / 100);
+                        break;
+                    case '-':
+                        result = base - (base * percent / 100);
+                        break;
+                    case '*':
+                        result = base * percent / 100;
+                        break;
+                    default:
+                        result = percent / 100;
+                }
+                
+                currentInput = result.toString();
+                updateDisplay();
+            } else {
+                currentInput = (parseFloat(currentInput) / 100).toString();
+                updateDisplay();
+            }
+        }
+        
+        // Scientific Functions
+        function sinFunction() { 
+            currentInput = Math.sin(parseFloat(currentInput) * Math.PI / 180).toString();
+            updateDisplay();
+        }
+        
+        function cosFunction() { 
+            currentInput = Math.cos(parseFloat(currentInput) * Math.PI / 180).toString();
+            updateDisplay();
+        }
+        
+        function tanFunction() { 
+            currentInput = Math.tan(parseFloat(currentInput) * Math.PI / 180).toString();
+            updateDisplay();
+        }
+        
+        function yToXFunction() { 
+            if (previousInput) {
+                let base = parseFloat(previousInput);
+                let exponent = parseFloat(currentInput);
+                currentInput = Math.pow(base, exponent).toString();
+                updateDisplay();
+                previousInput = null;
+            }
+        }
+        function cfFunction() { display.textContent = 'CF/NPV'; setTimeout(() => updateDisplay(), 1000); }
+        function irrFunction() { display.textContent = 'IRR'; setTimeout(() => updateDisplay(), 1000); }
+        function clearTvmFunction() { display.textContent = 'CLR TVM'; setTimeout(() => updateDisplay(), 1000); }
+        // TVM Functions
+        function nFunction() { 
+            if (isSecondFunction) {
+                // xP/Y function
+                display.textContent = 'xP/Y Function';
+                setTimeout(() => updateDisplay(), 1000);
+            } else {
+                tvmData.N = parseFloat(currentInput);
+                display.textContent = `N = ${tvmData.N}`;
+                setTimeout(() => updateDisplay(), 1000);
+            }
+        }
+        
+        function iyFunction() { 
+            if (isSecondFunction) {
+                // P/Y function
+                display.textContent = 'P/Y Function';
+                setTimeout(() => updateDisplay(), 1000);
+            } else {
+                tvmData.IY = parseFloat(currentInput);
+                display.textContent = `I/Y = ${tvmData.IY}`;
+                setTimeout(() => updateDisplay(), 1000);
+            }
+        }
+        
+        function pvFunction() { 
+            if (isSecondFunction) {
+                // AMORT function
+                display.textContent = 'AMORT Function';
+                setTimeout(() => updateDisplay(), 1000);
+            } else {
+                tvmData.PV = parseFloat(currentInput);
+                display.textContent = `PV = ${tvmData.PV}`;
+                setTimeout(() => updateDisplay(), 1000);
+            }
+        }
+        
+        function pmtFunction() { 
+            if (isSecondFunction) {
+                // BGN function
+                display.textContent = 'BGN Function';
+                setTimeout(() => updateDisplay(), 1000);
+            } else {
+                tvmData.PMT = parseFloat(currentInput);
+                display.textContent = `PMT = ${tvmData.PMT}`;
+                setTimeout(() => updateDisplay(), 1000);
+            }
+        }
+        
+        function fvFunction() { 
+            tvmData.FV = parseFloat(currentInput);
+            display.textContent = `FV = ${tvmData.FV}`;
+            setTimeout(() => updateDisplay(), 1000);
+        }
+        
+        // CPT Function - Compute missing TVM value
+        function cptFunction() { 
+            // Count how many values are set
+            let setValues = 0;
+            let missingValue = null;
+            
+            Object.keys(tvmData).forEach(key => {
+                if (tvmData[key] !== null) setValues++;
+                else missingValue = key;
+            });
+            
+            if (setValues === 4 && missingValue) {
+                let result = calculateTVM(missingValue);
+                tvmData[missingValue] = result;
+                currentInput = result.toString();
+                display.textContent = `${missingValue} = ${result}`;
+                setTimeout(() => updateDisplay(), 2000);
+            } else {
+                display.textContent = 'Need 4 values';
+                setTimeout(() => updateDisplay(), 1000);
+            }
+        }
+        
+        // Simplified TVM calculation (basic compound interest)
+        function calculateTVM(missing) {
+            const { N, IY, PV, PMT, FV } = tvmData;
+            const r = IY / 100; // Convert percentage to decimal
+            
+            switch(missing) {
+                case 'PV':
+                    if (PMT === 0) return -FV / Math.pow(1 + r, N);
+                    return -(FV + PMT * ((Math.pow(1 + r, N) - 1) / r)) / Math.pow(1 + r, N);
+                case 'FV':
+                    if (PMT === 0) return -PV * Math.pow(1 + r, N);
+                    return -PV * Math.pow(1 + r, N) - PMT * ((Math.pow(1 + r, N) - 1) / r);
+                case 'PMT':
+                    return -(PV * Math.pow(1 + r, N) + FV) / ((Math.pow(1 + r, N) - 1) / r);
+                case 'N':
+                    if (PMT === 0) return Math.log(-FV / PV) / Math.log(1 + r);
+                    // More complex for annuities
+                    return Math.log((FV * r - PMT) / (PV * r + PMT)) / Math.log(1 + r);
+                case 'IY':
+                    // This requires iterative solving - simplified approximation
+                    return 10; // Placeholder - would need Newton-Raphson method
+                default:
+                    return 0;
+            }
+        }
+        
+        function clearTvmFunction() { 
+            tvmData = { N: null, IY: null, PV: null, PMT: null, FV: null };
+            display.textContent = 'TVM Cleared';
+            setTimeout(() => updateDisplay(), 1000);
+        }
+        function percentFunction() { display.textContent = '%'; setTimeout(() => updateDisplay(), 1000); }
+        function randFunction() { display.textContent = 'RAND'; setTimeout(() => updateDisplay(), 1000); }
+        function hypFunction() { display.textContent = 'HYP'; setTimeout(() => updateDisplay(), 1000); }
+        function sinFunction() { display.textContent = 'SIN'; setTimeout(() => updateDisplay(), 1000); }
+        function cosFunction() { display.textContent = 'COS'; setTimeout(() => updateDisplay(), 1000); }
+        function tanFunction() { display.textContent = 'TAN'; setTimeout(() => updateDisplay(), 1000); }
+        function invFunction() { display.textContent = 'INV'; setTimeout(() => updateDisplay(), 1000); }
+        function openParen() { display.textContent = '('; setTimeout(() => updateDisplay(), 1000); }
+        function closeParen() { display.textContent = ')'; setTimeout(() => updateDisplay(), 1000); }
+        function yToXFunction() { display.textContent = 'y^x'; setTimeout(() => updateDisplay(), 1000); }
+        function npvFunction() { display.textContent = 'nPr'; setTimeout(() => updateDisplay(), 1000); }
+        // Statistical Functions
+        function dataFunction() { 
+            if (isSecondFunction) {
+                // Clear statistical data
+                statData = [];
+                display.textContent = 'STAT CLR';
+                setTimeout(() => updateDisplay(), 1000);
+            } else {
+                // Enter data point
+                let value = parseFloat(currentInput);
+                statData.push(value);
+                display.textContent = `DATA ${statData.length}: ${value}`;
+                setTimeout(() => updateDisplay(), 1500);
+            }
+        }
+        
+        function statFunction() { 
+            if (statData.length === 0) {
+                display.textContent = 'No Data';
+                setTimeout(() => updateDisplay(), 1000);
+                return;
+            }
+            
+            // Calculate basic statistics
+            let sum = statData.reduce((a, b) => a + b, 0);
+            let mean = sum / statData.length;
+            let variance = statData.reduce((a, b) => a + Math.pow(b - mean, 2), 0) / statData.length;
+            let stdDev = Math.sqrt(variance);
+            
+            // Cycle through different statistics on repeated presses
+            let stats = [
+                `n: ${statData.length}`,
+                `Mean: ${mean.toFixed(4)}`,
+                `StdDev: ${stdDev.toFixed(4)}`,
+                `Sum: ${sum.toFixed(4)}`
+            ];
+            
+            let statIndex = (statData.displayIndex || 0) % stats.length;
+            display.textContent = stats[statIndex];
+            statData.displayIndex = (statIndex + 1);
+            
+            setTimeout(() => updateDisplay(), 2000);
+        }
+        
+        // Date Functions
+        function inputNumber(num) {
+            if (dateMode) {
+                // In date mode, format as MM.DDYY
+                if (waitingForNewInput) {
+                    currentInput = num;
+                    waitingForNewInput = false;
+                } else {
+                    currentInput = currentInput === '0' ? num : currentInput + num;
+                }
+            } else {
+                // Normal number input
+                if (waitingForNewInput) {
+                    currentInput = num;
+                    waitingForNewInput = false;
+                } else {
+                    currentInput = currentInput === '0' ? num : currentInput + num;
+                }
+            }
+            updateDisplay();
+        }
+        
+        // Override the number button functions to handle DATE mode
+        function handleDateInput(num) {
+            if (currentInput.includes('1')) {
+                // Handle DATE function on button 1
+                toggleDateMode();
+                return;
+            }
+            inputNumber(num);
+        }
+        
+        function toggleDateMode() {
+            dateMode = !dateMode;
+            display.textContent = dateMode ? 'DATE MODE' : 'CALC MODE';
+            setTimeout(() => updateDisplay(), 1000);
+        }
+        
+        function calculateDateDifference() {
+            if (!storedDates.date1 || !storedDates.date2) {
+                display.textContent = 'Need 2 Dates';
+                setTimeout(() => updateDisplay(), 1000);
+                return;
+            }
+            
+            let diff = Math.abs(storedDates.date2 - storedDates.date1);
+            let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            
+            currentInput = days.toString();
+            display.textContent = `Days: ${days}`;
+            setTimeout(() => updateDisplay(), 2000);
+        }
+        
+        function storeDateFunction() {
+            if (dateMode) {
+                // Parse date from current input (MM.DDYY format)
+                let dateStr = currentInput;
+                if (dateStr.length >= 6) {
+                    let month = parseInt(dateStr.substring(0, 2));
+                    let day = parseInt(dateStr.substring(2, 4));
+                    let year = 2000 + parseInt(dateStr.substring(4, 6));
+                    
+                    let date = new Date(year, month - 1, day);
+                    
+                    if (!storedDates.date1) {
+                        storedDates.date1 = date;
+                        display.textContent = `Date1: ${month}/${day}/${year}`;
+                    } else {
+                        storedDates.date2 = date;
+                        display.textContent = `Date2: ${month}/${day}/${year}`;
+                        setTimeout(() => calculateDateDifference(), 1500);
+                        return;
+                    }
+                    setTimeout(() => updateDisplay(), 1500);
+                }
+            }
+        }
+        // Bond and Advanced Financial Functions
+        function bondFunction() { 
+            // Simple bond pricing (requires PV=price, FV=face value, PMT=coupon, N=periods, I/Y=yield)
+            if (tvmData.FV && tvmData.PMT && tvmData.N && tvmData.IY) {
+                let rate = tvmData.IY / 100;
+                let price = 0;
+                
+                // Present value of coupon payments
+                for (let i = 1; i <= tvmData.N; i++) {
+                    price += tvmData.PMT / Math.pow(1 + rate, i);
+                }
+                
+                // Present value of face value
+                price += tvmData.FV / Math.pow(1 + rate, tvmData.N);
+                
+                currentInput = price.toFixed(2);
+                display.textContent = `Bond: ${currentInput}`;
+                setTimeout(() => updateDisplay(), 2000);
+            } else {
+                display.textContent = 'Need FV,PMT,N,I/Y';
+                setTimeout(() => updateDisplay(), 1500);
+            }
+        }
+        
+        // Depreciation Functions (on button 4)
+        function calculateDepreciation() {
+            // Simple straight-line depreciation
+            if (tvmData.PV && tvmData.FV && tvmData.N) {
+                let depreciation = (tvmData.PV - tvmData.FV) / tvmData.N;
+                currentInput = depreciation.toFixed(2);
+                display.textContent = `DEPR: ${currentInput}`;
+                setTimeout(() => updateDisplay(), 2000);
+            } else {
+                display.textContent = 'Need PV,FV,N';
+                setTimeout(() => updateDisplay(), 1000);
+            }
+        }
+        
+        // Breakeven Analysis (on button 6)
+        function calculateBreakeven() {
+            // Simple breakeven: Fixed Costs / (Price - Variable Cost)
+            // Using memory registers: MEM0=Fixed Costs, MEM1=Price, MEM2=Variable Cost
+            if (memory[0] && memory[1] && memory[2]) {
+                let breakeven = memory[0] / (memory[1] - memory[2]);
+                currentInput = breakeven.toFixed(2);
+                display.textContent = `BRKEVN: ${currentInput}`;
+                setTimeout(() => updateDisplay(), 2000);
+            } else {
+                display.textContent = 'Set M0,M1,M2';
+                setTimeout(() => updateDisplay(), 1000);
+            }
+        }
+        
+        // Interest Conversion (on button 2)
+        function calculateInterestConversion() {
+            // Convert between effective and nominal rates
+            let rate = parseFloat(currentInput);
+            let periods = tvmData.N || 12; // Default to monthly compounding
+            
+            // Convert nominal to effective: (1 + r/n)^n - 1
+            let effective = Math.pow(1 + rate / 100 / periods, periods) - 1;
+            
+            currentInput = (effective * 100).toFixed(4);
+            display.textContent = `EFF: ${currentInput}%`;
+            setTimeout(() => updateDisplay(), 2000);
+        }
+        
+        // Profit Analysis (on button 3)
+        function calculateProfit() {
+            // Simple profit margin calculation
+            // Using current value as revenue, PV as cost
+            if (tvmData.PV) {
+                let revenue = parseFloat(currentInput);
+                let cost = tvmData.PV;
+                let profit = revenue - cost;
+                let margin = (profit / revenue) * 100;
+                
+                display.textContent = `PROFIT: ${profit.toFixed(2)}`;
+                setTimeout(() => {
+                    display.textContent = `MARGIN: ${margin.toFixed(2)}%`;
+                    setTimeout(() => updateDisplay(), 2000);
+                }, 2000);
+            } else {
+                display.textContent = 'Set PV=Cost';
+                setTimeout(() => updateDisplay(), 1000);
+            }
+        }
+        function rclFunction() { display.textContent = 'RCL'; setTimeout(() => updateDisplay(), 1000); }
+        function randFunction() { 
+            if (isSecondFunction) {
+                // RAND function - generate random number 0-1
+                currentInput = Math.random().toString();
+                updateDisplay();
+            } else {
+                // +/- function
+                currentInput = (parseFloat(currentInput) * -1).toString(); 
+                updateDisplay();
+            }
+        }
+        
+        function ansFunction() { 
+            // Store last result and recall it
+            if (previousInput) {
+                currentInput = previousInput;
+                updateDisplay();
+            } else {
+                display.textContent = 'No Last ANS';
+                setTimeout(() => updateDisplay(), 1000);
+            }
+        }
+        
+        // Override calculateResult to store last answer
+        function calculateResult() {
+            if (operator && previousInput !== null) {
+                const prev = parseFloat(previousInput);
+                const current = parseFloat(currentInput);
+                let result;
+
+                switch (operator) {
+                    case '+':
+                        result = prev + current;
+                        break;
+                    case '-':
+                        result = prev - current;
+                        break;
+                    case '*':
+                        result = prev * current;
+                        break;
+                    case '/':
+                        result = current !== 0 ? prev / current : 'Error';
+                        break;
+                    default:
+                        return;
+                }
+
+                // Store previous result for ANS function
+                let lastResult = currentInput;
+                currentInput = result.toString();
+                previousInput = lastResult; // Store for ANS
+                operator = null;
+                waitingForNewInput = true;
+                updateDisplay();
+            }
+        }
+        function cejcFunction() { display.textContent = 'CEJC'; setTimeout(() => updateDisplay(), 1000); }
+
+        // Initialize display
+        updateDisplay();
+    </script>
+</body>
+</html>
