@@ -177,10 +177,29 @@
     </footer>
 
     <script>
-        // Clear form on page load
-        window.onload = function() {
-            document.querySelector('form').reset();
-        };
+        // Function to clear the form
+        function clearForm() {
+            const form = document.querySelector('form');
+            if (form) {
+                form.reset();
+                // Also manually clear each field to be sure
+                const inputs = form.querySelectorAll('input, textarea');
+                inputs.forEach(input => {
+                    input.value = '';
+                });
+            }
+        }
+
+        // Clear form when page loads
+        document.addEventListener('DOMContentLoaded', clearForm);
+
+        // Clear form when coming back from browser navigation (back button)
+        window.addEventListener('pageshow', function(event) {
+            clearForm();
+        });
+
+        // Alternative: Clear form on window focus (when returning to tab)
+        window.addEventListener('focus', clearForm);
     </script>
     
 </body>
