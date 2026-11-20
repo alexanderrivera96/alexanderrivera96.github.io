@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=2">
     <script src="js/theme.js"></script>
 </head>
 <body>
@@ -110,6 +110,14 @@
             </div>
             <div class="cs-diagram" role="img" aria-label="Architecture: web and admin services share PostgreSQL and Redis; a Celery worker uses Redis and calls external services.">
                 <svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        text{font-family:Inter,-apple-system,sans-serif;fill:var(--fg,#000);letter-spacing:-0.02em}
+                        .sub{fill:var(--muted,#666);font-size:11px}
+                        .box{fill:var(--field,#fff);stroke:var(--line,#ccc);stroke-width:1.5}
+                        .box.app{stroke:var(--link,#0a6cff)}
+                        .edge{fill:none;stroke:var(--faint,#999);stroke-width:1.4}
+                        .ext{fill:var(--win-frame,#eef4ff);stroke:var(--line,#ccc)}
+                    </style>
                     <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#888"/></marker></defs>
                     <text x="140" y="24" text-anchor="middle" font-size="13" font-weight="600">Customers &amp; providers</text>
                     <text x="540" y="24" text-anchor="middle" font-size="13" font-weight="600">Platform admins</text>
