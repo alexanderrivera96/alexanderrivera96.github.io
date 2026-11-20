@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ciacx007 - Book2Day case study</title>
+    <meta name="description" content="Book2Day: a multi-tenant booking and business management platform for service businesses in Belize. Django, PostgreSQL, htmx, Celery, Render, Cloudflare R2, WhatsApp Cloud API.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/theme.js"></script>
+</head>
+<body>
+<header class="menubar">
+    <div class="menubar-row">
+        <nav class="left" aria-label="Main">
+            <a class="name" href="index.html">ciacx007</a>
+            <div class="menu-items">
+                <a href="index.html#about">about</a>
+                <a href="project.html" aria-current="page">projects</a>
+                <a href="index.html#blog">blog</a>
+                <a href="contact.html">contact</a>
+            </div>
+        </nav>
+        <a class="mark" href="index.html" aria-label="Home">&gt;_</a>
+        <div class="right">
+            <button class="theme-toggle" type="button" aria-label="Switch between dark and light theme"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.75a6.25 6.25 0 0 1 0 12.5z" fill="currentColor"/></svg></button>
+            <span class="clock" aria-hidden="true"></span>
+            <a class="menu-cta" href="contact.html">say hi</a>
+        </div>
+    </div>
+</header>
+<main class="page">
+    <section class="hero">
+        <span class="kicker">case study</span>
+        <h1 class="ptitle">book2day</h1>
+        <p class="psub">a multi-tenant booking and business management platform for service businesses in belize.</p>
+        <div class="actions">
+            <a class="btn" href="https://book2day.bz" target="_blank" rel="noopener"><span>visit live site</span></a>
+            <a class="btn grey" href="project.html"><span>all projects</span></a>
+        </div>
+    </section>
+
+    <section class="win reveal">
+        <div class="bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title">overview</div><div></div></div>
+        <div class="screen">
+            <div class="cs-stats">
+                <div class="cs-stat"><b>~5</b><span>providers taking real appointments</span></div>
+                <div class="cs-stat"><b>430+</b><span>automated tests in CI</span></div>
+                <div class="cs-stat"><b>&lt;50 ms</b><span>typical page time, profiled locally</span></div>
+                <div class="cs-stat"><b>0</b><span>possible double-bookings</span></div>
+            </div>
+            <dl class="cs-facts">
+                <dt>my role</dt><dd>Product owner: product strategy, design decisions, testing and QA</dd>
+                <dt>built with</dt><dd>Claude (AI coding assistant), which wrote the implementation</dd>
+                <dt>core stack</dt><dd>Django · PostgreSQL · htmx · Celery · Render · Cloudflare</dd>
+                <dt>status</dt><dd>Live in production at <a href="https://book2day.bz" target="_blank" rel="noopener" style="color:var(--link);text-decoration:none">book2day.bz</a></dd>
+            </dl>
+        </div>
+    </section>
+
+    <section class="win reveal">
+        <div class="bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title">the problem</div><div></div></div>
+        <div class="screen">
+            <div class="screen-head"><h2 class="ptitle">no front desk</h2></div>
+            <div class="cs-body">
+                <p>Most service providers in Belize (barbers, nail techs, lash artists, therapists, dentists) own the practice <em>and</em> do the work. There's no receptionist. Bookings arrive by phone, DMs and walk-ins while they're with a client, so messages go unanswered and slots get double-booked.</p>
+                <p>Existing salon software is built for larger teams, priced in USD, and doesn't fit clients who live on WhatsApp.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="win reveal">
+        <div class="bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title">how the product evolved</div><div></div></div>
+        <div class="screen">
+            <div class="screen-head"><h2 class="ptitle">marketplace → tool</h2></div>
+            <div class="cs-body">
+                <ul class="cs-steps">
+                    <li><strong>v1: booking marketplace.</strong> Customers browse local providers by category and town and book open times.</li>
+                    <li><strong>The insight.</strong> Providers' biggest pain wasn't finding customers. It was running the business while also being the staff. They needed a front desk.</li>
+                    <li><strong>v2: business management tool.</strong> Calendar, team, clients, services, classes, memberships, expenses and analytics for the provider. The marketplace became the discovery channel feeding each provider's calendar.</li>
+                    <li><strong>Scope decision.</strong> Automated reminders were cut. Clients get one WhatsApp confirmation when the booking is set, with a link to reschedule.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="win reveal">
+        <div class="bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title">how it was built</div><div></div></div>
+        <div class="screen">
+            <div class="screen-head"><h2 class="ptitle">product-led, ai-built</h2></div>
+            <div class="cs-body">
+                <p>I owned the product end to end and built it with an AI coding assistant. I made the product, design and architecture decisions and set what "done" meant. Claude wrote the implementation.</p>
+                <ul>
+                    <li><strong>Product:</strong> talked to providers, chose the pivot from marketplace to business tool, and set scope, including cutting reminders to ship a reliable confirmation flow.</li>
+                    <li><strong>Design decisions:</strong> UX and the design system, plus the technical direction: Django and htmx instead of a single-page app, correctness enforced by the database, tenant isolation and the security bar.</li>
+                    <li><strong>Testing:</strong> defined acceptance criteria and edge cases (concurrent holds, daylight-saving changes, cross-tenant access), tested every flow by hand on phone and desktop, and gated releases on the CI suite and layout checks.</li>
+                    <li><strong>Implementation:</strong> written by Claude from my specs, then reviewed and tested by me before merging to main.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="win reveal">
+        <div class="bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title">architecture</div><div></div></div>
+        <div class="screen">
+            <div class="cs-body" style="padding-top:24px">
+                <p>One Django codebase deployed to Render as three services: the customer site and provider dashboard, a separate admin console with MFA, and a Celery worker. Every merge to <code>main</code> deploys automatically.</p>
+            </div>
+            <div class="cs-diagram" role="img" aria-label="Architecture: web and admin services share PostgreSQL and Redis; a Celery worker uses Redis and calls external services.">
+                <svg viewBox="0 0 680 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#888"/></marker></defs>
+                    <text x="140" y="24" text-anchor="middle" font-size="13" font-weight="600">Customers &amp; providers</text>
+                    <text x="540" y="24" text-anchor="middle" font-size="13" font-weight="600">Platform admins</text>
+                    <path class="edge" marker-end="url(#arrow)" d="M140,32 L140,62"/>
+                    <path class="edge" marker-end="url(#arrow)" d="M540,32 L540,62"/>
+                    <rect class="box app" x="60" y="66" width="160" height="62" rx="8"/>
+                    <text x="140" y="92" text-anchor="middle" font-size="14" font-weight="700">bookbz-web</text>
+                    <text class="sub" x="140" y="112" text-anchor="middle">Django + htmx · DRF API</text>
+                    <rect class="box app" x="460" y="66" width="160" height="62" rx="8"/>
+                    <text x="540" y="92" text-anchor="middle" font-size="14" font-weight="700">bookbz-admin</text>
+                    <text class="sub" x="540" y="112" text-anchor="middle">Password + TOTP MFA</text>
+                    <text class="sub" x="540" y="144" text-anchor="middle">optional Cloudflare Access</text>
+                    <rect class="box" x="260" y="160" width="160" height="56" rx="8"/>
+                    <text x="340" y="184" text-anchor="middle" font-size="14" font-weight="700">PostgreSQL</text>
+                    <text class="sub" x="340" y="203" text-anchor="middle">range types · GiST exclusion</text>
+                    <rect class="box" x="260" y="250" width="160" height="50" rx="8"/>
+                    <text x="340" y="280" text-anchor="middle" font-size="14" font-weight="700">Redis</text>
+                    <rect class="box app" x="460" y="240" width="160" height="70" rx="8"/>
+                    <text x="540" y="264" text-anchor="middle" font-size="14" font-weight="700">bookbz-worker</text>
+                    <text class="sub" x="540" y="282" text-anchor="middle">Celery + beat: holds, classes,</text>
+                    <text class="sub" x="540" y="297" text-anchor="middle">insights, calendar sync</text>
+                    <path class="edge" marker-end="url(#arrow)" d="M140,128 L140,188 L256,188"/>
+                    <path class="edge" marker-end="url(#arrow)" d="M140,188 L140,275 L256,275"/>
+                    <path class="edge" marker-end="url(#arrow)" d="M540,150 L540,188 L424,188"/>
+                    <path class="edge" marker-end="url(#arrow)" d="M456,275 L424,275"/>
+                    <path class="edge" marker-end="url(#arrow)" d="M500,240 L420,212"/>
+                    <rect class="ext" x="40" y="340" width="600" height="44" rx="8"/>
+                    <text x="340" y="367" text-anchor="middle" font-size="13">Cloudflare R2  ·  WhatsApp Cloud API  ·  Google Calendar  ·  OpenFreeMap</text>
+                    <path class="edge" marker-end="url(#arrow)" d="M540,310 L540,336"/>
+                    <path class="edge" marker-end="url(#arrow)" d="M100,128 L100,336"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <section class="win reveal">
+        <div class="bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title">stack</div><div></div></div>
+        <div class="screen">
+            <div class="screen-head"><h2 class="ptitle">the stack</h2></div>
+            <table class="cs-table">
+                <tr><th>Backend</th><td>Django 5.2 LTS (Python), Django REST Framework (REST API v1)</td></tr>
+                <tr><th>Frontend</th><td>Server-rendered Django templates + htmx, no SPA. Custom CSS design system with colour and radius tokens. Responsive from 320 px up</td></tr>
+                <tr><th>Database</th><td>PostgreSQL with range types, GiST exclusion constraints and btree_gist</td></tr>
+                <tr><th>Background jobs</th><td>Celery workers and Celery beat on Redis</td></tr>
+                <tr><th>Hosting</th><td>Render: web, admin (separate host) and worker, all from one codebase. Auto-deploy on merge to main</td></tr>
+                <tr><th>Edge &amp; storage</th><td>Cloudflare DNS; Cloudflare R2 (S3-compatible) via django-storages</td></tr>
+                <tr><th>Maps</th><td>MapLibre GL, self-hosted, with OpenFreeMap tiles and a custom style</td></tr>
+                <tr><th>Messaging</th><td>Meta WhatsApp Cloud API, called directly, with signed webhooks</td></tr>
+                <tr><th>Integrations</th><td>Google Calendar (OAuth with PKCE, one-way sync), iCal feeds</td></tr>
+                <tr><th>CI</th><td>GitHub Actions: 430+ tests plus headless Chrome layout checks at desktop and phone widths</td></tr>
+            </table>
+        </div>
+    </section>
+
+    <section class="win reveal">
+        <div class="bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title">engineering highlights</div><div></div></div>
+        <div class="screen">
+            <div class="screen-head"><h2 class="ptitle">under the hood</h2></div>
+            <ul class="rows cs-hl">
+                <li class="row"><span class="num">1</span><div class="row-info"><h3>The database makes double-booking impossible</h3><p>Each appointment stores a time range including the service's buffer minutes, and a PostgreSQL exclusion constraint stops two blocking appointments for the same staff member from overlapping. Checkout holds live in the same table, so one constraint covers holds, pending requests and confirmed bookings. Confirming updates the held row in place, leaving no window for a second customer. A test fires 20 concurrent holds at one slot and checks that exactly one succeeds.</p></div></li>
+                <li class="row"><span class="num">2</span><div class="row-info"><h3>One function controls every status change</h3><p>A single transition function handles held → pending approval → confirmed → completed or no-show, plus the cancel paths. Each change bumps a version number and sends events only after the database commit, so the API, webhooks, jobs and admin stay consistent, and stale jobs can't act on outdated data.</p></div></li>
+                <li class="row"><span class="num">3</span><div class="row-info"><h3>Availability is calculated live, never stored</h3><p>Weekly hours, minus bookings, time off and holidays, placed on a local-clock grid. Time-zone safe and tested across a daylight-saving change.</p></div></li>
+                <li class="row"><span class="num">4</span><div class="row-info"><h3>Group classes reuse the same engine</h3><p>Each seat is an appointment. Seats share an overlap key so they don't block each other, but the class still blocks the instructor's one-on-one time. Taking the last spot locks the class row.</p></div></li>
+                <li class="row"><span class="num">5</span><div class="row-info"><h3>Insights: analytics built from bookings</h3><p>Nightly jobs fill daily and hourly summary tables. Providers see income by month, weekday and hour, a busy-hours heat map, and which services earn the most per hour. Charts are SVG drawn on the server, with no JavaScript charting library.</p></div></li>
+                <li class="row"><span class="num">6</span><div class="row-info"><h3>Strict tenant isolation</h3><p>Every view checks business membership and capabilities, and querysets are scoped to the business. A test walks every URL and tries to reach another business's data.</p></div></li>
+                <li class="row"><span class="num">7</span><div class="row-info"><h3>Security in depth</h3><p>Same-origin-only Content Security Policy with no inline JavaScript. Photos re-encoded to WebP with EXIF and GPS removed. Sign-in codes HMAC-hashed and throttled. OAuth tokens encrypted. Webhook signatures verified. Append-only audit logs. Fresh sign-in required for sensitive actions.</p></div></li>
+                <li class="row"><span class="num">8</span><div class="row-info"><h3>Profiled under load</h3><p>Tested with 300+ businesses and a shop with 6,000+ bookings. Most pages run 3–29 queries in under about 50 ms locally, with no one-query-per-row problems. The ~1 MB map library loads only when a map scrolls into view.</p></div></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="win reveal">
+        <div class="bar"><div class="dots" aria-hidden="true"><i></i><i></i><i></i></div><div class="bar-title">product scope</div><div></div></div>
+        <div class="screen">
+            <div class="screen-head"><h2 class="ptitle">what it does</h2></div>
+            <div class="cs-scope">
+                <div><h3>Customers</h3><ul><li>Search and discovery</li><li>Business pages with galleries and maps</li><li>Live booking, guest or account</li><li>WhatsApp confirmation with reschedule link</li><li>Manage booking by link</li><li>Verified reviews</li><li>Spanish language</li></ul></div>
+                <div><h3>Providers</h3><ul><li>Day / week / month calendar</li><li>Approvals and walk-ins</li><li>Team and staff logins</li><li>Clients with private notes</li><li>Services and add-ons</li><li>Group classes and memberships</li><li>Expenses and Insights</li><li>Google Calendar and iCal sync</li></ul></div>
+                <div><h3>Platform admin</h3><ul><li>Business onboarding</li><li>Moderation, suspend or delete</li><li>Audit logs</li><li>Holiday and boost planning</li></ul></div>
+            </div>
+            <div class="empty"><a class="btn small" href="https://book2day.bz" target="_blank" rel="noopener"><span>visit book2day.bz</span></a></div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <div class="footer-col">
+                <p class="footer-head">site</p>
+                <ul>
+                    <li><a href="index.html#about">about</a></li>
+                    <li><a href="project.html">projects</a></li>
+                    <li><a href="index.html#blog">blog</a></li>
+                    <li><a href="contact.html">contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <p class="footer-head">connect</p>
+                <ul>
+                    <li><a href="https://github.com/alexanderrivera96">github</a></li>
+                    <li><a href="#linkedin">linkedin</a></li>
+                    <li><a href="https://x.com/ciacx007">x (twitter)</a></li>
+                    <li><a href="#rss">rss</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <p class="footer-head">fine print</p>
+                <p>*powered by coffee and deadlines*</p>
+            </div>
+        </div>
+        <div class="wordmark" aria-hidden="true"></div>
+        <p class="footer-copy">&copy; 2015 - 2026 ciacx007</p>
+    </footer>
+</main>
+</body>
+</html>
